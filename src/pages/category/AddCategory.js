@@ -1,8 +1,7 @@
-import React, { useState,useEffect } from "react";
-import { useNavigate, useParams} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/AddBook.css";
-
 
 const initialState = {
   title: "",
@@ -14,69 +13,68 @@ const AddCategory = () => {
 
   const { title, description } = state;
 
-  const {_id} = useParams();
+  const { id } = useParams();
 
-  useEffect(()=>{
-    if(_id){
-      getSingleBook(_id);
+  useEffect(() => {
+    if (id) {
+      getSingleCategory(id);
     }
-  },[_id])
+  }, [id]);
 
-
-
-  const getSingleBook = async (id) => {
-      const reponse  = await axios.get(`http://localhost:5000/category/${id}`)
-      if(reponse.status === 200){
-          setState({
-            ...reponse.data[0]
-          })
-      }
-  }
-
-
-
-  const history = useNavigate();
-
-  const addBook = async (data) => {
-    const reponse = await axios.post("http://localhost:5000/category", data);
+  const getSingleCategory = async (id) => {
+    const reponse = await axios.get(`http://localhost:5000/category/${id}`);
     if (reponse.status === 200) {
-     setState(data);
+      setState({
+        ...reponse.data[0]
+      });
     }
   };
 
-  const updateBook = async (data,id) => {
-    const reponse = await axios.put(`http://localhost:5000/category/${id}`, data);
+  const history = useNavigate();
+
+  const addCategory = async (data) => {
+    const reponse = await axios.post("http://localhost:5000/category", data);
     if (reponse.status === 200) {
-      getSingleBook(data);
+      setState(data);
+    }
+  };
+
+  const updateCategory = async (data, id) => {
+    const reponse = await axios.put(
+      `http://localhost:5000/category/${id}`,
+      data
+    );
+    if (reponse.status === 200) {
+      getSingleCategory(data);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      if(!_id){
-        addBook(state);
-      }else{
-        updateBook(state,_id);
-      }
-   setTimeout(()=>history("/"),500);
+    if (!id) {
+      addCategory(state);
+    } else {
+      updateCategory(state,id);
+    }
+    setTimeout(() => history("/"), 500);
   };
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
     setState({
-       ...state,
-        [name]: value 
-      });
+      ...state,
+      [name]: value,
+    });
   };
 
   return (
-    <div style={{ marginTop: "50px" }} >
+    <div style={{ marginTop: "50px" }}>
       <form
         style={{
           margin: "atuo",
           padding: "15px",
           maxWidth: "400px",
-          alignContent:"center"
+          alignContent: "center",
         }}
         onSubmit={handleSubmit}
       >
@@ -98,7 +96,7 @@ const AddCategory = () => {
           onChange={handleInputChange}
           value={description}
         />
-        <input type="submit" value={_id ? "Update" : "Add"} />
+        <input type="submit" value={id ?"Update" : "Add"} />
       </form>
     </div>
   );

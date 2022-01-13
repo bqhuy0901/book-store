@@ -7,21 +7,23 @@ const CategoryList = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getBooks();
+    getCategory();
   }, []);
 
-  const getBooks = async () => {
+  const getCategory = async () => {
     const reponse = await axios.get("http://localhost:5000/category");
     if (reponse.status === 200) {
       setData(reponse.data);
     }
   };
 
-  const onDeleteBook = async (id) => {
-    if (window.confirm("Ban muon xoa cuon sach nay khong")) {
-      const reponse = await axios.delete(`http://localhost:5000/books/${id}`);
+  const onDeleteCategory = async (id) => {
+    if (window.confirm("Bạn có muốn xóa thể loại này không ?")) {
+      const reponse = await axios.delete(
+        `http://localhost:5000/Category/${id}`
+      );
       if (reponse.status === 200) {
-        getBooks();
+        getCategory();
       }
     }
   };
@@ -43,21 +45,18 @@ const CategoryList = () => {
               return (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
-                  <td>{item.title}</td>
-                  <td>{item.description}</td>
+                  <td className="table-title">{item.title}</td>
+                  <td className="table-des">{item.description}</td>
                   <td>
-                    <Link to={`/update/${item.id}`}>
+                    <Link to={`/updateCategory/${item._id}`}>
                       <button className="btn btn-edit">Sửa</button>
                     </Link>
                     <button
                       className="btn btn-delete"
-                      onClick={() => onDeleteBook(item.id)}
+                      onClick={() => onDeleteCategory(item._id)}
                     >
                       Xóa
                     </button>
-                    <Link to={`/view/${item.id}`}>
-                      <button className="btn btn-view">View</button>
-                    </Link>
                   </td>
                 </tr>
               );

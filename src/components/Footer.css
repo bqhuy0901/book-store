@@ -1,0 +1,36 @@
+.footer {
+  background: #34495e;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: aliceblue;
+  justify-content: space-around;
+  margin-top: auto;
+  clear: both;
+  position: relative;
+  width: 100%;
+}
+
+.footer_sp {
+  margin-top: 10px;
+}
+
+.footer_sp h2 {
+  border-bottom: 2px #fff solid;
+}
+
+.footer_sp li {
+  padding-top: 10px;
+}
+
+.footer_contact {
+  margin-top: 5px;
+}
+
+.footer_contact h2 {
+  border-bottom: 2px solid #fff;
+}
+
+.footer_contact li {
+  padding-top: 10px;
+}
