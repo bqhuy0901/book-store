@@ -25,7 +25,7 @@ const AddCategory = () => {
     const reponse = await axios.get(`http://localhost:5000/category/${id}`);
     if (reponse.status === 200) {
       setState({
-        ...reponse.data[0]
+        ...reponse.data[0],
       });
     }
   };
@@ -40,10 +40,7 @@ const AddCategory = () => {
   };
 
   const updateCategory = async (data, id) => {
-    const reponse = await axios.put(
-      `http://localhost:5000/category/${id}`,
-      data
-    );
+    const reponse = await axios.put(`http://localhost:5000/category/${id}`,data );
     if (reponse.status === 200) {
       getSingleCategory(data);
     }
@@ -54,7 +51,7 @@ const AddCategory = () => {
     if (!id) {
       addCategory(state);
     } else {
-      updateCategory(state,id);
+      updateCategory(state, id);
     }
     setTimeout(() => history("/"), 500);
   };
@@ -96,7 +93,7 @@ const AddCategory = () => {
           onChange={handleInputChange}
           value={description}
         />
-        <input type="submit" value={id ?"Update" : "Add"} />
+        <input type="submit" value={id ? "Update" : "Add"} />
       </form>
     </div>
   );

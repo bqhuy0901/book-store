@@ -14,13 +14,13 @@ const AddBook = () => {
 
   const { title, description, price } = state;
 
-  const { _id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    if (_id) {
-      getSingleBook(_id);
+    if (id) {
+      getSingleBook(id);
     }
-  }, [_id]);
+  }, [id]);
 
   const getSingleBook = async (id) => {
     const reponse = await axios.get(`http://localhost:5000/books/${id}`);
@@ -49,10 +49,10 @@ const AddBook = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !description || !price) {
+    if (!id) {
       addBook(state);
     } else {
-      updateBook(state, _id);
+      updateBook(state, id);
     }
     setTimeout(() => history("/"), 500);
   };
@@ -103,7 +103,7 @@ const AddBook = () => {
           onChange={handleInputChange}
           value={price}
         />
-        <input type="submit" value={_id ? "Update" : "Add"} />
+        <input type="submit" value={id ? "Update" : "Add"} />
       </form>
     </div>
   );
